@@ -6,21 +6,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ContainerWebCoreTest.Models;
 using ContainerWebCoreTest.Services;
+using StructureMap;
 
 namespace ContainerWebCoreTest.Controllers
 {
     public class HomeController : Controller
     {
         public IMyService Service { get; }
+        public IContainer Container { get; }
 
-        public HomeController(IMyService service)
+        public HomeController(IMyService service, IContainer container)
         {
+            // Service.Container = DEFAULT
             Service = service;
+
+            // Container = DEFAULT - NESTED
+            Container = container;
         }
 
         public IActionResult Index()
         {
-            Service.DoWork();
+            // instance.Container = DEFAULT
+            var instance = Container.GetInstance<IMyService>();
             return View();
         }
 
