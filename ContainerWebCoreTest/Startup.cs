@@ -40,8 +40,8 @@ namespace ContainerWebCoreTest
             container.Configure(config =>
             {
                 config.Populate(services);
-                config.For<IDummy>().Add<Dummy>().ContainerScoped();
-                config.For<IMyService>().Add<MyService>().ContainerScoped();
+                config.For<IDummy>().Add<Dummy>().Transient();
+                config.For<IMyService>().Add<MyService>().Transient();
             });
             return container.GetInstance<IServiceProvider>();
         }

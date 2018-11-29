@@ -27,7 +27,7 @@ namespace ContainerWebCoreTest.Controllers
         public IActionResult Index()
         {
             // instance.Container = DEFAULT
-            var instance = Container.GetInstance<IMyService>();
+            Container.GetInstance<IMyService>().DoWork();
             return View();
         }
 

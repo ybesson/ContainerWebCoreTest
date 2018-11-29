@@ -1,4 +1,5 @@
-﻿using StructureMap;
+﻿using System;
+using StructureMap;
 
 namespace ContainerWebCoreTest.Services
 {
@@ -22,6 +23,26 @@ namespace ContainerWebCoreTest.Services
         public void DoWork()
         {
             var dummy = Container.GetInstance<IDummy>();
+            using (var disposable = new Disposable(Container))
+            {
+
+            }
+            dummy = Container.GetInstance<IDummy>();
+        }
+    }
+
+    public class Disposable : IDisposable
+    {
+        private readonly IContainer _container;
+
+        public Disposable(IContainer container)
+        {
+            _container = container;
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
         }
     }
 }
